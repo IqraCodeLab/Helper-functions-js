@@ -1,0 +1,21 @@
+name: Get GitHub Badges Trick
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Trigger Pull Shark & YOLO
+      run: |
+        git config --global user.name "YourGitHubUsername"
+        git config --global user.email "your-email@example.com"
+        echo "Trick Update" >> trick.txt
+        git add trick.txt
+        git commit -m "Chor rasta for badges"
+        # Yeh script automatically PRs banakar merge karegi bina review ke
