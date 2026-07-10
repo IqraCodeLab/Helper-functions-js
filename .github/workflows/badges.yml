@@ -6,7 +6,6 @@ on:
   schedule:
     - cron: '0 */6 * * *'
 
-# Write permissions dena zaroori hai taake workflow PR create aur merge kar sake
 permissions:
   contents: write
   pull-requests: write
@@ -23,7 +22,6 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        # GitHub Actions ka apna bot use karein taake configurations setup rahein
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         
@@ -34,8 +32,8 @@ jobs:
         git add progress.txt
         git commit -m "Update development progress logs"
         
-        git push origin $BRANCH_NAME
+        # Yahan -f (force push) add kiya hai taake conflict na aaye
+        git push origin $BRANCH_NAME -f
         
-        # PR create aur automatically merge karne ke liye commands
         gh pr create --title "Merge development logs" --body "Automated update for development logs." --base main --head $BRANCH_NAME
         gh pr merge --merge --delete-branch
